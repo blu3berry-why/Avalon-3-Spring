@@ -18,7 +18,7 @@ class OldMethodsController(var lobbyController: LobbyController) {
         return lobbyController.getLobbySettings(lobbyCode)
     }
 
-    @GetMapping("/lobby/{lobbyCode}/playernames")
+    @GetMapping("/getplayers/{lobbyCode}/")
     fun getPlayerNames(@PathVariable lobbyCode: String):List<String>{
         return lobbyController.getPlayerNames(lobbyCode)
     }

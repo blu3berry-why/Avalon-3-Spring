@@ -1,8 +1,10 @@
 package blu3berry.why.avalon.helpers
 
-import blu3berry.why.avalon.helpers.AdventureLimit
-import blu3berry.why.avalon.helpers.Balance
+import org.springframework.context.annotation.Bean
+import org.springframework.stereotype.Component
 
+
+@Component
 class Constants {
     val playerBalance = listOf<Balance>(
         // # 0 players
