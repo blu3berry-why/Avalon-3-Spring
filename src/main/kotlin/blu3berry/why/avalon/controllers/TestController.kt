@@ -10,7 +10,7 @@ class TestController {
     @GetMapping("/test")
     fun getTest() = Message("test message")
 
-    @PostMapping("test")
+    @PostMapping("/test")
     fun postTest() = Message("test message")
 
     @GetMapping("/")

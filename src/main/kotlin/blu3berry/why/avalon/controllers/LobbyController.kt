@@ -14,17 +14,17 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class LobbyController {
-    @GetMapping("lobby/{lobbyCode}/settings")
+    @GetMapping("/lobby/{lobbyCode}/settings")
     fun getLobbySettings(@PathVariable lobbyCode: String): Settings {
         TODO()
     }
 
-    @GetMapping("lobby/{lobbyCode}/playernames")
+    @GetMapping("/lobby/{lobbyCode}/playernames")
     fun getPlayerNames(@PathVariable lobbyCode: String):List<String>{
         TODO()
     }
 
-    @PostMapping("lobby/create")
+    @PostMapping("/lobby/create")
     fun createLobby():LobbyCode{
         TODO()
     }
