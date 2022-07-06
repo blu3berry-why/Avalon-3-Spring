@@ -1,5 +1,6 @@
-package blu3berry.why.avalon.controllers
+package blu3berry.why.avalon.api.controllers
 
+import blu3berry.why.avalon.api.controllers.LobbyController
 import blu3berry.why.avalon.model.network.LobbyCode
 import blu3berry.why.avalon.model.network.Message
 import blu3berry.why.avalon.model.network.Settings

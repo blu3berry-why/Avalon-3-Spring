@@ -1,11 +1,11 @@
-package blu3berry.why.avalon.helpers
+package blu3berry.why.avalon.model.helpers
 
 import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 
 
 @Component
-class Constants {
+object Constants {
     val playerBalance = listOf<Balance>(
         // # 0 players
         Balance(valid = false),

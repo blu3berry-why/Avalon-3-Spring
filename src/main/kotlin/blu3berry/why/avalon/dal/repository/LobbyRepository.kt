@@ -1,4 +1,4 @@
-package blu3berry.why.avalon.repository
+package blu3berry.why.avalon.dal.repository
 
 import blu3berry.why.avalon.model.db.Lobby
 import org.springframework.data.mongodb.repository.MongoRepository

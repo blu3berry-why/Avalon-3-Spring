@@ -1,4 +1,4 @@
-package blu3berry.why.avalon.helpers
+package blu3berry.why.avalon.model.helpers
 
 data class AdventureLimit(
     val valid: Boolean = true,

@@ -1,8 +1,8 @@
-package blu3berry.why.avalon.controllers
+package blu3berry.why.avalon.api.controllers
 
-import blu3berry.why.avalon.interfaces.IUserService
+import blu3berry.why.avalon.dal.services.interfaces.IUserService
 import blu3berry.why.avalon.model.db.User
-import blu3berry.why.avalon.repository.UserRepository
+import blu3berry.why.avalon.dal.repository.UserRepository
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
