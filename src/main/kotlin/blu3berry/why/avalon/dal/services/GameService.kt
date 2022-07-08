@@ -8,45 +8,44 @@ import blu3berry.why.avalon.dal.extensions.voteOnAdventure
 import blu3berry.why.avalon.model.db.UserRoleMap
 import blu3berry.why.avalon.model.network.*
 import blu3berry.why.avalon.dal.repository.LobbyRepository
+import blu3berry.why.avalon.dal.services.interfaces.IGameService
 import blu3berry.why.avalon.dal.services.interfaces.ILobbyOperations
 import org.springframework.stereotype.Service
 
 @Service
-class GameService(override val lobbyRepository: LobbyRepository) : ILobbyOperations {
+class GameService(override val lobbyRepository: LobbyRepository) : ILobbyOperations, IGameService {
 
-    fun getGameInfo(lobbyCode:String): Info{
+    override fun getGameInfo(lobbyCode: String): Info {
         return lobbyByCode(lobbyCode).info
     }
 
-    fun getCharacter(lobbyCode: String, username:String):CharacterInfo{
+    override fun getCharacter(lobbyCode: String, username: String): CharacterInfo {
         val lobby = lobbyByCode(lobbyCode)
         val role = lobby
             .userRoles
-            .first{ userRoleMap: UserRoleMap -> userRoleMap.userName == username }
+            .first { userRoleMap: UserRoleMap -> userRoleMap.userName == username }
             .role
         return CharacterInfo(role, lobby.sees(role, username))
     }
 
-    fun select(lobbyCode: String, selected:List<String>):Message{
+    override fun select(lobbyCode: String, selected: List<String>): Message {
         lobbyByCode(lobbyCode).select(selected)
         return Message.OK
     }
 
-    fun vote(lobbyCode: String, vote: SingleVote): Message{
+    override fun vote(lobbyCode: String, vote: SingleVote): Message {
         lobbyByCode(lobbyCode).vote(vote)
         return Message.OK
     }
 
-    fun adventureVote(lobbyCode: String, vote: SingleVote):Message{
+    override fun adventureVote(lobbyCode: String, vote: SingleVote): Message {
         lobbyByCode(lobbyCode).voteOnAdventure(vote)
         return Message.OK
     }
 
-    fun guess(lobbyCode: String, guess: AssassinGuess): Message{
+    override fun guess(lobbyCode: String, guess: AssassinGuess): Message {
         TODO()
     }
-
-
 
 
 }

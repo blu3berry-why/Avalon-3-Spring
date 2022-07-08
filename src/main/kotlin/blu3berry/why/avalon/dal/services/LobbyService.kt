@@ -9,6 +9,7 @@ import blu3berry.why.avalon.model.network.Info
 import blu3berry.why.avalon.model.network.Settings
 import blu3berry.why.avalon.dal.repository.LobbyRepository
 import blu3berry.why.avalon.dal.services.interfaces.ILobbyOperations
+import blu3berry.why.avalon.dal.services.interfaces.ILobbyService
 import org.springframework.stereotype.Service
 
 
@@ -18,14 +19,14 @@ class LobbyService(
     val randomizeService: RandomizeService,
     override val lobbyRepository: LobbyRepository
     )
-    : ILobbyOperations
+    : ILobbyOperations, ILobbyService
 {
 
-    fun getLobbySettings(lobbyCode: String): Settings = lobbyByCode(lobbyCode).settings
+    override fun getLobbySettings(lobbyCode: String): Settings = lobbyByCode(lobbyCode).settings
 
-    fun getPlayerNames(lobbyCode: String): MutableList<String> = lobbyByCode(lobbyCode).info.playersName
+    override fun getPlayerNames(lobbyCode: String): MutableList<String> = lobbyByCode(lobbyCode).info.playersName
 
-    fun joinLobby(lobbyCode: String, username: String) : Boolean{
+    override fun joinLobby(lobbyCode: String, username: String) : Boolean{
         val lobby = lobbyByCode(lobbyCode)
         if (!lobby.info.playersName.contains(username)){
             lobby.info.playersName.add(username)
@@ -33,7 +34,7 @@ class LobbyService(
         return true
     }
 
-    fun leaveLobby(lobbyCode: String, username: String) : Boolean{
+    override fun leaveLobby(lobbyCode: String, username: String) : Boolean{
         val lobby = lobbyByCode(lobbyCode)
         if (!lobby.info.playersName.contains(username)){
             lobby.info.playersName.remove(username)
@@ -41,18 +42,18 @@ class LobbyService(
         return true
     }
 
-    fun startLobby(lobbyCode: String){
+    override fun startLobby(lobbyCode: String){
         return lobbyByCode(lobbyCode).start()
     }
 
-    fun updateSettings(lobbyCode: String, settings: Settings){
+    override fun updateSettings(lobbyCode: String, settings: Settings){
         lobbyByCode(lobbyCode).apply {
             this.settings = settings
             lobbyRepository.save(this)
         }
     }
 
-    fun createLobby(): Lobby {
+    override fun createLobby(): Lobby {
         return Lobby(
             lobbyCode = randomizeService.sixCharStr(),
             info = Info(

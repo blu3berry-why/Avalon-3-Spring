@@ -1,17 +1,17 @@
 package blu3berry.why.avalon.api.controllers
 
 import blu3berry.why.avalon.model.network.*
-import blu3berry.why.avalon.dal.services.GameService
-import org.springframework.http.HttpStatus
+
+import blu3berry.why.avalon.dal.services.interfaces.IGameService
+
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
-import org.springframework.web.server.ResponseStatusException
 
 @RestController
-class GameController(val gameService: GameService) {
+class GameController(val gameService: IGameService) {
     @GetMapping("/game/{lobbyCode}")
     fun getGameInfo(@PathVariable lobbyCode: String): Info =
         gameService.getGameInfo(lobbyCode)
