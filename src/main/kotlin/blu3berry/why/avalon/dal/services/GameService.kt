@@ -18,7 +18,7 @@ class GameService(override val lobbyRepository: LobbyRepository) : ILobbyOperati
         return lobbyByCode(lobbyCode).info
     }
 
-    fun getCharacter(lobbyCode: String, username:String):CharacterInfo?{
+    fun getCharacter(lobbyCode: String, username:String):CharacterInfo{
         val lobby = lobbyByCode(lobbyCode)
         val role = lobby
             .userRoles

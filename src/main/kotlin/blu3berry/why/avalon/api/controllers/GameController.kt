@@ -14,32 +14,32 @@ import org.springframework.web.server.ResponseStatusException
 class GameController(val gameService: GameService) {
     @GetMapping("/game/{lobbyCode}")
     fun getGameInfo(@PathVariable lobbyCode:String): Info{
-        return gameService.getGameInfo(lobbyCode) ?: throw ResponseStatusException(HttpStatus.NOT_FOUND, "Lobby not found")
+        return gameService.getGameInfo(lobbyCode)
     }
 
     @GetMapping("/game/{lobbyCode}/character")
-    fun getCharacter(@PathVariable lobbyCode: String): CharacterInfo{
-        TODO()
+    fun getCharacter(@PathVariable lobbyCode: String, @RequestBody username: String): CharacterInfo{
+        return gameService.getCharacter(lobbyCode, username)
     }
 
     @PostMapping("/game/{lobbyCode}/select")
-    fun selectForAdventure(@PathVariable lobbyCode: String, @RequestBody list: List<String>): Message{
-        TODO()
+    fun selectForAdventure(@PathVariable lobbyCode: String, @RequestBody selected: List<String>): Message{
+        return gameService.select(lobbyCode, selected)
     }
 
     @PostMapping("/game/{lobbyCode}/vote")
     fun vote(@PathVariable lobbyCode: String, @RequestBody vote:SingleVote): Message{
-        TODO()
+        return gameService.vote(lobbyCode, vote)
     }
 
     @PostMapping("/game/{lobbyCode}/adventureVote")
     fun adventure(@PathVariable lobbyCode: String, @RequestBody vote: SingleVote): Message{
-        TODO()
+        return gameService.adventureVote(lobbyCode, vote)
     }
 
     @PostMapping("/game/{lobbyCode}/assassin")
     fun assassin(@PathVariable lobbyCode: String, @RequestBody guess:AssassinGuess): Message{
-        TODO()
+        return gameService.guess(lobbyCode, guess)
     }
 
 

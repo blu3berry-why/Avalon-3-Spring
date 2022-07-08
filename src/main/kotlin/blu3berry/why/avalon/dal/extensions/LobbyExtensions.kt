@@ -1,5 +1,6 @@
 package blu3berry.why.avalon.dal.extensions
 
+import blu3berry.why.avalon.api.errorhandling.exceptions.ConflictException
 import blu3berry.why.avalon.model.helpers.Constants
 import blu3berry.why.avalon.model.db.Lobby
 import blu3berry.why.avalon.model.db.UserRoleMap
@@ -47,7 +48,7 @@ fun Lobby.randomizeRoles(){
     roles.shuffle()
 
     if (roles.size != this.playerSize)
-        throw IllegalArgumentException("Randomize.kt : 58, roles.size != players.size")
+        ConflictException.Throw("roles.size != players.size")
 
     for (i in 0 until roles.size){
         this.userRoles.add(UserRoleMap(this.info.playersName[i], roles[i]))
@@ -59,14 +60,16 @@ val Lobby.playerSize: Int
 
 
 fun Lobby.start() {
+
     if (this.info.started)
-        throw IllegalArgumentException("Lobby has already started")
+        ConflictException.Throw("Lobby has already started")
+
 
     if (this.info.playersName.size < 5)
-        throw IllegalArgumentException("Too few players")
+        ConflictException.Throw("Too few players")
 
-    if (this.info.playersName.size > 10)
-        throw IllegalArgumentException("Too many players")
+    if (this.playerSize > 10)
+        ConflictException.Throw("Too many players")
 
     this.info.started = true
     // might should be randomised
@@ -81,10 +84,10 @@ fun Lobby.start() {
 
 fun Lobby.select(chosen: List<String>) {
     if (chosen.size != Constants.adventureLimit[this.playerSize].limits[this.info.currentRound])
-        throw IllegalArgumentException("This is not the required amount of people! Required: ${Constants.adventureLimit[this.playerSize].limits[this.info.currentRound]}, but found : ${chosen.size}!")
+        ConflictException.Throw("This is not the required amount of people! Required: ${Constants.adventureLimit[this.playerSize].limits[this.info.currentRound]}, but found : ${chosen.size}!")
 
     if (chosen.isNotEmpty())
-        throw IllegalArgumentException("The king has already chosen")
+        ConflictException.Throw("The king has already chosen")
 
     chosen.forEach {
         this.votes[this.info.currentRound].choosen.add(it)
@@ -100,8 +103,8 @@ fun Lobby.vote(vote: SingleVote) {
         it.username == vote.username
     } ?: results.add(vote)
 
-    if (results.size == this.info.playersName.size) {
-        if (results.filter { it.uservote }.size > (this.info.playersName.size / 2)) {
+    if (results.size == this.playerSize) {
+        if (results.filter { it.uservote }.size > (this.playerSize / 2)) {
             this.startAdventure()
             this.info.failCounter = 0
         } else {

@@ -8,4 +8,5 @@ interface ILobbyOperations {
     val lobbyRepository: LobbyRepository
 
     fun lobbyByCode(lobbyCode: String) = lobbyRepository.findLobbyByLobbyCode(lobbyCode) ?: ResourceNotFoundException.lobbyNotFound
+
 }

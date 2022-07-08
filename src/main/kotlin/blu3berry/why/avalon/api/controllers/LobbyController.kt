@@ -53,7 +53,7 @@ class LobbyController(val lobbyService: LobbyService) {
     @PostMapping("/lobby/{lobbyCode}/start")
     fun startLobby(@PathVariable lobbyCode: String): Message{
         lobbyService.startLobby(lobbyCode)
-        TODO()
+        return Message.OK
     }
 
     @PutMapping("/lobby/{lobbyCode}/settings")
