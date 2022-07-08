@@ -13,34 +13,31 @@ import org.springframework.web.server.ResponseStatusException
 @RestController
 class GameController(val gameService: GameService) {
     @GetMapping("/game/{lobbyCode}")
-    fun getGameInfo(@PathVariable lobbyCode:String): Info{
-        return gameService.getGameInfo(lobbyCode)
-    }
+    fun getGameInfo(@PathVariable lobbyCode: String): Info =
+        gameService.getGameInfo(lobbyCode)
+
 
     @GetMapping("/game/{lobbyCode}/character")
-    fun getCharacter(@PathVariable lobbyCode: String, @RequestBody username: String): CharacterInfo{
-        return gameService.getCharacter(lobbyCode, username)
-    }
+    fun getCharacter(@PathVariable lobbyCode: String, @RequestBody username: String): CharacterInfo =
+        gameService.getCharacter(lobbyCode, username)
 
     @PostMapping("/game/{lobbyCode}/select")
-    fun selectForAdventure(@PathVariable lobbyCode: String, @RequestBody selected: List<String>): Message{
-        return gameService.select(lobbyCode, selected)
-    }
+    fun selectForAdventure(@PathVariable lobbyCode: String, @RequestBody selected: List<String>): Message =
+        gameService.select(lobbyCode, selected)
+
 
     @PostMapping("/game/{lobbyCode}/vote")
-    fun vote(@PathVariable lobbyCode: String, @RequestBody vote:SingleVote): Message{
-        return gameService.vote(lobbyCode, vote)
-    }
+    fun vote(@PathVariable lobbyCode: String, @RequestBody vote: SingleVote): Message =
+        gameService.vote(lobbyCode, vote)
 
     @PostMapping("/game/{lobbyCode}/adventureVote")
-    fun adventure(@PathVariable lobbyCode: String, @RequestBody vote: SingleVote): Message{
-        return gameService.adventureVote(lobbyCode, vote)
-    }
+    fun adventure(@PathVariable lobbyCode: String, @RequestBody vote: SingleVote): Message =
+        gameService.adventureVote(lobbyCode, vote)
+
 
     @PostMapping("/game/{lobbyCode}/assassin")
-    fun assassin(@PathVariable lobbyCode: String, @RequestBody guess:AssassinGuess): Message{
-        return gameService.guess(lobbyCode, guess)
-    }
+    fun assassin(@PathVariable lobbyCode: String, @RequestBody guess: AssassinGuess): Message =
+        gameService.guess(lobbyCode, guess)
 
 
 }

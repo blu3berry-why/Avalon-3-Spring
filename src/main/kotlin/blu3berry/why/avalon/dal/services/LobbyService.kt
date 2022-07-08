@@ -21,12 +21,12 @@ class LobbyService(
     : ILobbyOperations
 {
 
-    fun getLobbySettings(lobbyCode: String): Settings? = lobbyByCode(lobbyCode).settings
+    fun getLobbySettings(lobbyCode: String): Settings = lobbyByCode(lobbyCode).settings
 
-    fun getPlayerNames(lobbyCode: String): MutableList<String>? = lobbyByCode(lobbyCode).info.playersName
+    fun getPlayerNames(lobbyCode: String): MutableList<String> = lobbyByCode(lobbyCode).info.playersName
 
     fun joinLobby(lobbyCode: String, username: String) : Boolean{
-        val lobby = lobbyRepository.findLobbyByLobbyCode(lobbyCode) ?: ResourceNotFoundException.lobbyNotFound
+        val lobby = lobbyByCode(lobbyCode)
         if (!lobby.info.playersName.contains(username)){
             lobby.info.playersName.add(username)
         }
@@ -34,7 +34,7 @@ class LobbyService(
     }
 
     fun leaveLobby(lobbyCode: String, username: String) : Boolean{
-        val lobby = lobbyRepository.findLobbyByLobbyCode(lobbyCode) ?: ResourceNotFoundException.lobbyNotFound
+        val lobby = lobbyByCode(lobbyCode)
         if (!lobby.info.playersName.contains(username)){
             lobby.info.playersName.remove(username)
         }
@@ -42,15 +42,15 @@ class LobbyService(
     }
 
     fun startLobby(lobbyCode: String){
-        return lobbyRepository.findLobbyByLobbyCode(lobbyCode)?.start() ?: ResourceNotFoundException.lobbyNotFound
+        return lobbyByCode(lobbyCode).start()
     }
 
-
-
-
-    //------------------------------------------------------
-    //   EXTENSION FUNCTIONS
-    //------------------------------------------------------
+    fun updateSettings(lobbyCode: String, settings: Settings){
+        lobbyByCode(lobbyCode).apply {
+            this.settings = settings
+            lobbyRepository.save(this)
+        }
+    }
 
     fun createLobby(): Lobby {
         return Lobby(
@@ -78,6 +78,4 @@ class LobbyService(
             adventureVotes = mutableListOf(),
         )
     }
-
-
 }

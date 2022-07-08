@@ -15,18 +15,14 @@ import org.springframework.web.server.ResponseStatusException
 @RestController
 class LobbyController(val lobbyService: LobbyService) {
     @GetMapping("/lobby/{lobbyCode}/settings")
-    fun getLobbySettings(@PathVariable lobbyCode: String): Settings {
-        return lobbyService.getLobbySettings(lobbyCode) ?: throw  ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Lobby not found"
-        )
-    }
+    fun getLobbySettings(@PathVariable lobbyCode: String): Settings =
+        lobbyService.getLobbySettings(lobbyCode)
+
 
     @GetMapping("/lobby/{lobbyCode}/playernames")
-    fun getPlayerNames(@PathVariable lobbyCode: String):List<String>{
-        return lobbyService.getPlayerNames(lobbyCode) ?: throw  ResponseStatusException(
-                HttpStatus.NOT_FOUND, "Lobby not found"
-        )
-    }
+    fun getPlayerNames(@PathVariable lobbyCode: String):List<String> =
+        lobbyService.getPlayerNames(lobbyCode)
+
 
     @PostMapping("/lobby/create")
     fun createLobby():LobbyCode = LobbyCode(lobbyService.createLobby().lobbyCode)
@@ -58,7 +54,8 @@ class LobbyController(val lobbyService: LobbyService) {
 
     @PutMapping("/lobby/{lobbyCode}/settings")
     fun updateSettings(@PathVariable lobbyCode: String): Message{
-        TODO()
+        updateSettings(lobbyCode)
+        return Message.OK
     }
 
 
