@@ -15,6 +15,7 @@ class UserService(var userRepository: UserRepository) : IUserService {
             it.username = user.username
             it.email = user.email
             //PASSWORDHASH
+            TODO()
             //it.password = hash(user.password, it.salt)
             it.friends = user.friends
             userRepository.save(it)

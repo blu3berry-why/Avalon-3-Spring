@@ -6,7 +6,7 @@ import kotlin.random.Random
 
 
 @Service
-class RandomizeService(var constants: Constants) {
+class RandomizeService() {
     fun sixCharStr(): String{
         val characters= "abcdefghijklmnopqrstuvwxyz0123456789"
         var result = ""

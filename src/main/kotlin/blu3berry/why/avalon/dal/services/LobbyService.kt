@@ -1,9 +1,7 @@
 package blu3berry.why.avalon.dal.services
 
-import blu3berry.why.avalon.api.errorhandling.exceptions.ResourceNotFoundException
-import blu3berry.why.avalon.dal.extensions.start
-import blu3berry.why.avalon.model.helpers.Constants
-import blu3berry.why.avalon.model.db.Lobby
+import blu3berry.why.avalon.model.db.lobby.extensions.start
+import blu3berry.why.avalon.model.db.lobby.Lobby
 import blu3berry.why.avalon.model.enums.SCORE
 import blu3berry.why.avalon.model.network.Info
 import blu3berry.why.avalon.model.network.Settings
@@ -15,7 +13,6 @@ import org.springframework.stereotype.Service
 
 @Service
 class LobbyService(
-    val constants: Constants,
     val randomizeService: RandomizeService,
     override val lobbyRepository: LobbyRepository
     )

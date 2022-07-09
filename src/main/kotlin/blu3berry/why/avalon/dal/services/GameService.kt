@@ -1,10 +1,10 @@
 package blu3berry.why.avalon.dal.services
 
-import blu3berry.why.avalon.api.errorhandling.exceptions.ResourceNotFoundException
-import blu3berry.why.avalon.dal.extensions.sees
-import blu3berry.why.avalon.dal.extensions.select
-import blu3berry.why.avalon.dal.extensions.vote
-import blu3berry.why.avalon.dal.extensions.voteOnAdventure
+
+import blu3berry.why.avalon.model.db.lobby.extensions.sees
+import blu3berry.why.avalon.model.db.lobby.extensions.select
+import blu3berry.why.avalon.model.db.lobby.extensions.vote
+import blu3berry.why.avalon.model.db.lobby.extensions.voteOnAdventure
 import blu3berry.why.avalon.model.db.UserRoleMap
 import blu3berry.why.avalon.model.network.*
 import blu3berry.why.avalon.dal.repository.LobbyRepository

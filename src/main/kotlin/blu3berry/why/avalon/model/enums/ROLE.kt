@@ -2,61 +2,65 @@ package blu3berry.why.avalon.model.enums
 
 enum class ROLE {
     PERCIVAL {
-        override fun isEvil(): Boolean {
-            return false
-        }
+        override val isEvil = false
     },
     MERLIN {
-        override fun isEvil(): Boolean {
-            return false
-        }
+        override val isEvil = false
     },
     SERVANT_OF_ARTHUR {
-        override fun isEvil(): Boolean {
-            return false
-        }
+        override val isEvil = false
     },
     ARNOLD {
-        override fun isEvil(): Boolean {
-            return false
-        }
+        override val isEvil = false
     },
     ASSASSIN {
-        override fun isEvil(): Boolean {
-            return true
-        }
+        override val isEvil = true
     },
     MORGANA {
-        override fun isEvil(): Boolean {
-            return true
-        }
+        override val isEvil = true
     },
     MORDRED {
-        override fun isEvil(): Boolean {
-            return true
-        }
+        override val isEvil = true
     },
     OBERON {
-        override fun isEvil(): Boolean {
-            return true
-        }
+        override val isEvil = true
     },
     MINION_OF_MORDRED {
-        override fun isEvil(): Boolean {
-            return true
-        }
+        override val isEvil = true
 
     }
 
 
     ; // - one of the needed commas
 
-    abstract fun isEvil(): Boolean
-    fun getAllEvil(): List<ROLE> {
-        return listOf(ASSASSIN, MORGANA, MORDRED, OBERON, MINION_OF_MORDRED)
+    //abstract fun isEvil(): Boolean
+
+    abstract val isEvil : Boolean
+
+    companion object{
+        fun getAllEvil(): List<ROLE> {
+            return listOf(ASSASSIN, MORGANA, MORDRED, OBERON, MINION_OF_MORDRED)
+        }
+
+        fun getAllGood():List<ROLE>{
+            return listOf(PERCIVAL, MERLIN, MINION_OF_MORDRED, ARNOLD)
+        }
     }
 
-    fun getAllGood():List<ROLE>{
-        return listOf(PERCIVAL, MERLIN, MINION_OF_MORDRED, ARNOLD)
-    }
+    val isOberon: Boolean
+        get() = this == OBERON
+
+    val isMordred: Boolean
+        get() = this == MORDRED
+
+    val isMerlin: Boolean
+        get() = this == MERLIN
+
+    val isPercival: Boolean
+        get() = this == PERCIVAL
+
+    val looksLikeMerlin: Boolean
+        get() =
+            this == MERLIN || this == MORGANA
+
 }

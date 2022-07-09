@@ -1,5 +1,6 @@
-package blu3berry.why.avalon.model.db
+package blu3berry.why.avalon.model.db.lobby
 
+import blu3berry.why.avalon.model.db.UserRoleMap
 import blu3berry.why.avalon.model.network.Info
 import blu3berry.why.avalon.model.network.Settings
 import blu3berry.why.avalon.model.network.RoundVote

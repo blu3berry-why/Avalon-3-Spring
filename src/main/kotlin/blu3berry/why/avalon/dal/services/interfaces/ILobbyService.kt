@@ -1,6 +1,6 @@
 package blu3berry.why.avalon.dal.services.interfaces
 
-import blu3berry.why.avalon.model.db.Lobby
+import blu3berry.why.avalon.model.db.lobby.Lobby
 import blu3berry.why.avalon.model.network.Settings
 
 interface ILobbyService {
