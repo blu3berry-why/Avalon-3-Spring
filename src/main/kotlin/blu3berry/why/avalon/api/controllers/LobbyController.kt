@@ -55,7 +55,4 @@ class LobbyController(val lobbyService: ILobbyService) {
         updateSettings(lobbyCode)
         return Message.OK
     }
-
-
-
 }

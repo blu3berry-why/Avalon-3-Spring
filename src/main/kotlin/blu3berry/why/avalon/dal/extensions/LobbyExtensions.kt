@@ -10,133 +10,212 @@ import blu3berry.why.avalon.model.enums.WINNER
 import blu3berry.why.avalon.model.network.RoundVote
 import blu3berry.why.avalon.model.network.SingleVote
 
-fun Lobby.randomizeRoles(){
-    val roles = mutableListOf<ROLE>()
+data class SettingToRoleMapper(val checked: Boolean, val type: ROLE)
+
+private fun Lobby.addEvil(roles: MutableList<ROLE>) {
     val numOfEvil = Constants.playerBalance[this.playerSize].evil
 
-    val needMoreEvil = fun(): Boolean{
-        return roles.size < numOfEvil
-    }()
+    fun needMoreEvil() = roles.size < numOfEvil
+    val needMoreEvil = needMoreEvil()
 
-    val evilRolesSettings = listOf(this.settings.assassin,this.settings.morgana,this.settings.mordred,this.settings.oberon);
-    val evilRoles = listOf(ROLE.ASSASSIN,ROLE.MORGANA,ROLE.MORDRED,ROLE.OBERON);
+    val evilRoles = listOf(
+        SettingToRoleMapper(this.settings.assassin, ROLE.ASSASSIN),
+        SettingToRoleMapper(this.settings.morgana, ROLE.MORGANA),
+        SettingToRoleMapper(this.settings.mordred, ROLE.MORDRED),
+        SettingToRoleMapper(this.settings.oberon, ROLE.OBERON)
+    )
 
-    for (i in 0 until 4){
-        if (evilRolesSettings[i] && needMoreEvil){
-            roles.add(evilRoles[i])
+    for (role in evilRoles) {
+        if (role.checked && needMoreEvil) {
+            roles.add(role.type)
         }
     }
 
     while (needMoreEvil)
         roles.add(ROLE.MINION_OF_MORDRED)
 
-    val needMoreGood= fun(): Boolean{
-        return (roles.size - numOfEvil) < Constants.playerBalance[this.playerSize].good
-    }()
+}
+
+private fun Lobby.addGood(roles: MutableList<ROLE>) {
+    val numOfEvil = Constants.playerBalance[this.playerSize].evil
+
+    fun needMoreGood() = (roles.size - numOfEvil) < Constants.playerBalance[this.playerSize].good
+    val needMoreGood = needMoreGood()
+
+    val goodRoles = listOf(
+        SettingToRoleMapper(this.settings.percival, ROLE.PERCIVAL),
+        SettingToRoleMapper(this.settings.arnold, ROLE.ARNOLD)
+    )
 
     roles.add(ROLE.MERLIN)
 
-    if(this.settings.percival && needMoreGood)
-        roles.add(ROLE.PERCIVAL)
-
-    if (this.settings.arnold && needMoreGood)
-        roles.add(ROLE.ARNOLD)
+    for (role in goodRoles) {
+        if (role.checked && needMoreGood) {
+            roles.add(role.type)
+        }
+    }
 
     while (needMoreGood)
-        roles.add(ROLE.MINION_OF_MORDRED)
+        roles.add(ROLE.SERVANT_OF_ARTHUR)
+}
 
+private fun Lobby.assignRoleToPlayers(roles: List<ROLE>) {
+    for (i in roles.indices) {
+        this.userRoles.add(UserRoleMap(this.info.playersName[i], roles[i]))
+    }
+}
+
+private fun Lobby.randomizeRoles() {
+    val roles = mutableListOf<ROLE>()
+
+    addEvil(roles)
+    addGood(roles)
     roles.shuffle()
 
     if (roles.size != this.playerSize)
         ConflictException.Throw("roles.size != players.size")
 
-    for (i in 0 until roles.size){
-        this.userRoles.add(UserRoleMap(this.info.playersName[i], roles[i]))
-    }
+    assignRoleToPlayers(roles)
 }
 
-val Lobby.playerSize: Int
+private val Lobby.playerSize: Int
     get() = this.info.playersName.size
 
 
-fun Lobby.start() {
-
+private fun Lobby.checkStartingConditions() {
     if (this.info.started)
         ConflictException.Throw("Lobby has already started")
 
+    val minimumPlayersNeeded = 5
 
-    if (this.info.playersName.size < 5)
+    if (this.info.playersName.size < minimumPlayersNeeded)
         ConflictException.Throw("Too few players")
 
-    if (this.playerSize > 10)
+    val maximumPlayers = 10
+
+    if (this.playerSize > maximumPlayers)
         ConflictException.Throw("Too many players")
+}
+
+//NOTE: could be private at this time, but later we probably will use it as a public function
+fun Lobby.setKing(playerName: String) {
+    this.info.king = playerName
+}
+
+
+private fun Lobby.addEmptyVoteRoundPlaceholder() {
+    this.votes.add(RoundVote("", mutableListOf(), mutableListOf()))
+}
+
+private fun Lobby.addNewVoteRound() {
+    this.votes.add(RoundVote(this.info.king!!, mutableListOf(), mutableListOf()))
+}
+
+private fun Lobby.addEmptyAdventureVoteRoundPlaceholder() {
+    this.adventureVotes.add(RoundVote("", mutableListOf(), mutableListOf()))
+}
+
+private fun Lobby.addNewAdventureVoteRound() {
+    this.adventureVotes.add(RoundVote(this.info.king!!, currentChosen, mutableListOf()))
+}
+
+fun Lobby.start() {
+    checkStartingConditions()
 
     this.info.started = true
     // might should be randomised
-    this.info.king = this.info.playersName[0]
+    val firstPlayerName = this.info.playersName[0]
+
+    setKing(firstPlayerName)
+
     this.info.currentRound = 1
-    // round 0 is just a placeholder
-    this.votes.add(RoundVote("", mutableListOf(), mutableListOf()))
-    this.votes.add(RoundVote(this.info.king!!, mutableListOf(), mutableListOf()))
-    this.adventureVotes.add(RoundVote("", mutableListOf(), mutableListOf()))
-    this.randomizeRoles()
+
+    addEmptyVoteRoundPlaceholder()
+    addNewVoteRound()
+    addEmptyAdventureVoteRoundPlaceholder()
+    randomizeRoles()
 }
 
+private val Lobby.currentChosen: MutableList<String>
+    get() = this.votes[this.info.currentRound].choosen
+
 fun Lobby.select(chosen: List<String>) {
-    if (chosen.size != Constants.adventureLimit[this.playerSize].limits[this.info.currentRound])
-        ConflictException.Throw("This is not the required amount of people! Required: ${Constants.adventureLimit[this.playerSize].limits[this.info.currentRound]}, but found : ${chosen.size}!")
+    if (chosen.size != Constants.getAdventreimit(playerSize, info.currentRound))
+        ConflictException.Throw(
+            "This is not the required amount of people! Required: ${
+                Constants.getAdventreimit(
+                    playerSize,
+                    info.currentRound
+                )
+            }, but found : ${chosen.size}!"
+        )
 
     if (chosen.isNotEmpty())
         ConflictException.Throw("The king has already chosen")
 
-    chosen.forEach {
-        this.votes[this.info.currentRound].choosen.add(it)
+    currentChosen.addAll(chosen)
+
+    this.info.selectedForAdventure = currentChosen
+
+}
+
+private val Lobby.currentResults: MutableList<SingleVote>
+    get() = this.votes[this.info.currentRound].results
+
+private fun Lobby.addVoteIfNotAlreadyVoted(vote: SingleVote) {
+    currentResults.firstOrNull {
+        it.username == vote.username
+    } ?: currentResults.add(vote)
+}
+
+private fun Lobby.failedToSelectForAdventure() {
+    this.info.failCounter++
+    val maxFailsAllowed = 5
+    if (this.info.failCounter == maxFailsAllowed) {
+        this.info.winner = WINNER.EVIL
     }
-
-    this.info.selectedForAdventure = this.votes[this.info.currentRound].choosen
-
 }
 
 fun Lobby.vote(vote: SingleVote) {
-    val results = this.votes[this.info.currentRound].results
-    results.firstOrNull {
-        it.username == vote.username
-    } ?: results.add(vote)
+    addVoteIfNotAlreadyVoted(vote)
 
-    if (results.size == this.playerSize) {
-        if (results.filter { it.uservote }.size > (this.playerSize / 2)) {
-            this.startAdventure()
-            this.info.failCounter = 0
-        } else {
-            this.info.failCounter++
-            if (this.info.failCounter == 5) {
-                this.info.winner = WINNER.EVIL
-            }
-            this.nextRound()
-        }
+    val everybodyVoted = currentResults.size == this.playerSize
+
+    if (!everybodyVoted)
+        return
+
+    val approvingVotes = currentResults.filter { it.uservote }.size
+
+    if (approvingVotes > (this.playerSize / 2)) {
+        this.startAdventure()
+    } else {
+        failedToSelectForAdventure()
     }
-
+    this.nextRound()
 }
 
-fun Lobby.nextRound() {
+
+private fun Lobby.nextRound() {
     this.info.currentRound++
     this.info.isAdventure = false
-    this.votes.add(RoundVote(this.nextKing(), mutableListOf(), mutableListOf()))
+    nextKing()
+    addNewVoteRound()
 }
 
-fun Lobby.startAdventure() {
+private fun Lobby.startAdventure() {
+    this.info.failCounter = 0
     this.info.isAdventure = true
     this.info.currentAdventure++
-    this.info.selectedForAdventure = this.votes[this.info.currentRound].choosen
-    this.adventureVotes.add(RoundVote(this.info.king!!, this.votes[this.info.currentRound].choosen, mutableListOf()))
+    this.info.selectedForAdventure = currentChosen
+    addNewAdventureVoteRound()
 }
 
-fun Lobby.nextKing(): String {
+private fun Lobby.nextKing(): String {
     var idx = this.info.playersName.indexOf(this.info.playersName.first {
         this.info.king == it
     }) + 1
 
-    if (idx == this.info.playersName.size)
+    if (idx == this.playerSize)
         idx = 0
 
     this.info.king = this.info.playersName[idx]
@@ -144,19 +223,32 @@ fun Lobby.nextKing(): String {
     return this.info.king!!
 }
 
+private val Lobby.currentAdvetureVotes: RoundVote
+    get() = this.adventureVotes[this.info.currentAdventure]
+
+private fun Lobby.checkIfChosen(vote: SingleVote) {
+    currentAdvetureVotes.choosen.firstOrNull { vote.username == it }
+        ?: ConflictException.Throw("You are not chosen")
+}
+
+private fun Lobby.checkIfAlreadyVotedOnAdventure(vote: SingleVote) {
+    if (currentAdvetureVotes.results
+            .firstOrNull { vote.username == it.username }
+        != null
+    )
+        ConflictException.Throw("You already voted")
+}
+
 fun Lobby.voteOnAdventure(vote: SingleVote) {
-    if (!this.info.isAdventure)
-        throw IllegalArgumentException("There is no adventure going on")
+    if (info.isAdventure.not())
+        ConflictException.Throw("There is no adventure going on")
 
-    val round = this.adventureVotes[this.info.currentAdventure]
+    checkIfChosen(vote)
 
-    if (round.choosen.firstOrNull { vote.username == it } == null)
-        throw IllegalArgumentException("You are not chosen")
+    checkIfAlreadyVotedOnAdventure(vote)
 
-    if (round.results.firstOrNull { vote.username == it.username } != null)
-        throw IllegalArgumentException("You already voted")
 
-    round.results.add(vote)
+    currentAdvetureVotes.results.add(vote)
 
     var limit = 1
 
@@ -164,8 +256,8 @@ fun Lobby.voteOnAdventure(vote: SingleVote) {
         limit = Constants.adventureLimit[this.playerSize].failsRequiredOnFourth
     }
 
-    if (round.results.size == round.choosen.size) {
-        if (round.results.filter { !it.uservote }.size >= limit) {
+    if (currentAdvetureVotes.results.size == currentAdvetureVotes.choosen.size) {
+        if (currentAdvetureVotes.results.filter { !it.uservote }.size >= limit) {
             this.info.scores.add((this.info.currentAdventure - 1), SCORE.EVIL)
         } else {
             this.info.scores.add((this.info.currentAdventure - 1), SCORE.GOOD)
@@ -181,7 +273,7 @@ fun Lobby.voteOnAdventure(vote: SingleVote) {
     }
 }
 
-val Lobby.hasWinner: Boolean
+private val Lobby.hasWinner: Boolean
     get() {
         if (this.info.winner != WINNER.NOT_DECIDED) {
             return true

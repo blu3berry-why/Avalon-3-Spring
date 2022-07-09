@@ -16,7 +16,6 @@ class GameController(val gameService: IGameService) {
     fun getGameInfo(@PathVariable lobbyCode: String): Info =
         gameService.getGameInfo(lobbyCode)
 
-
     @GetMapping("/game/{lobbyCode}/character")
     fun getCharacter(@PathVariable lobbyCode: String, @RequestBody username: String): CharacterInfo =
         gameService.getCharacter(lobbyCode, username)

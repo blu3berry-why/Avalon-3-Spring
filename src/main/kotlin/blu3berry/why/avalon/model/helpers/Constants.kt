@@ -1,6 +1,5 @@
 package blu3berry.why.avalon.model.helpers
 
-import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Component
 
 
@@ -71,5 +70,9 @@ object Constants {
         ),
             failsRequiredOnFourth = 2)
     )
+
+    fun getBalanceByPlayerNum(playerNum:Int) = this.playerBalance[playerNum]
+
+    fun getAdventreimit(playerNum: Int, currentRound:Int) = this.adventureLimit[playerNum].limits[currentRound]
 
 }
