@@ -10,6 +10,8 @@ import blu3berry.why.avalon.model.network.*
 import blu3berry.why.avalon.dal.repository.LobbyRepository
 import blu3berry.why.avalon.dal.services.interfaces.IGameService
 import blu3berry.why.avalon.dal.services.interfaces.ILobbyOperations
+import blu3berry.why.avalon.model.enums.SCORE
+import blu3berry.why.avalon.model.enums.WINNER
 import org.springframework.stereotype.Service
 
 @Service
@@ -44,7 +46,17 @@ class GameService(override val lobbyRepository: LobbyRepository) : ILobbyOperati
     }
 
     override fun guess(lobbyCode: String, guess: AssassinGuess): Message {
-        TODO()
+        val lobby = lobbyByCode(lobbyCode)
+        val guessRole = lobby.userRoles.first { it.userName == guess.guess }.role
+
+        if (guessRole.isMerlin)
+            lobby.info.winner = WINNER.EVIL
+        else
+            lobby.info.winner = WINNER.GOOD
+
+        lobbyRepository.save(lobby)
+        return Message.OK
+
     }
 
 
