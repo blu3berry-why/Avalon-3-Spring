@@ -1,6 +1,5 @@
 package blu3berry.why.avalon.api.controllers
 
-import blu3berry.why.avalon.api.controllers.LobbyController
 import blu3berry.why.avalon.model.network.LobbyCode
 import blu3berry.why.avalon.model.network.Message
 import blu3berry.why.avalon.model.network.Settings
@@ -11,13 +10,13 @@ import org.springframework.web.bind.annotation.PutMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-class OldMethodsController(var lobbyController: LobbyController) {
+class OldEndpointsController(val lobbyController: LobbyController) {
 
 
-    @GetMapping("getinfo{lobbyCode}")
-    fun getLobbySettings(@PathVariable lobbyCode:String): Settings {
-        return lobbyController.getLobbySettings(lobbyCode)
-    }
+    @GetMapping("getinfo/{lobbyCode}")
+    fun getLobbySettings(@PathVariable lobbyCode:String): Settings
+        = lobbyController.getLobbySettings(lobbyCode)
+
 
     @GetMapping("/getplayers/{lobbyCode}/")
     fun getPlayerNames(@PathVariable lobbyCode: String):List<String>{

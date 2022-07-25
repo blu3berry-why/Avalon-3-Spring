@@ -1,7 +1,10 @@
 package blu3berry.why.avalon.api.inerceptor
 
+import blu3berry.why.avalon.dal.services.LoggingService
+import io.swagger.v3.oas.models.PathItem
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.stereotype.Component
 import org.springframework.web.servlet.HandlerInterceptor
 import org.springframework.web.servlet.ModelAndView
 import java.lang.Exception
@@ -9,7 +12,8 @@ import java.time.LocalDateTime
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
-class LoggingInterceptor : HandlerInterceptor{
+@Component
+class LoggingInterceptor(val loggingService: LoggingService) : HandlerInterceptor{
 
     val logger: Logger = LoggerFactory.getLogger(LoggingInterceptor::class.java)
 
@@ -28,9 +32,15 @@ class LoggingInterceptor : HandlerInterceptor{
     }
 
     override fun preHandle(request: HttpServletRequest, response: HttpServletResponse, handler: Any): Boolean {
-        logger.info(createLog(request.method, request.pathInfo, "username"))
-        return super.preHandle(request, response, handler)
-    }
+            if(request.method == PathItem.HttpMethod.GET.name
+                || request.method == PathItem.HttpMethod.DELETE.name
+                || request.method == PathItem.HttpMethod.PUT.name
+            )    {
+                loggingService.displayReq(request,null)
+            }
+            return true
+        }
+
 
     override fun postHandle(
         request: HttpServletRequest,
