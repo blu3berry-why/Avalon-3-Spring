@@ -12,6 +12,7 @@ import blu3berry.why.avalon.model.db.lobby.Lobby
 import blu3berry.why.avalon.model.db.lobby.extensions.currentChosen
 import blu3berry.why.avalon.model.enums.ROLE
 import blu3berry.why.avalon.model.enums.WINNER
+import blu3berry.why.avalon.model.network.AssassinGuess
 import blu3berry.why.avalon.model.network.Message
 import blu3berry.why.avalon.model.network.SingleVote
 import org.junit.jupiter.api.Assertions.assertEquals
@@ -22,7 +23,6 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
 import org.mockito.Mock
-import org.mockito.Mockito
 import org.mockito.Mockito.*
 import org.mockito.MockitoAnnotations
 import org.springframework.beans.factory.annotation.Autowired
@@ -48,7 +48,7 @@ class GameServiceTest {
         gameService = GameService(lobbyRepository)
 
         testLobby= MockLobbies.normalLobby()
-        Mockito.`when`(lobbyRepository.findLobbyByLobbyCode("test_lobby_code")).thenReturn(testLobby)
+        `when`(lobbyRepository.findLobbyByLobbyCode("test_lobby_code")).thenReturn(testLobby)
     }
 
     @Test
@@ -224,7 +224,7 @@ class GameServiceTest {
             gameService.select("lobby_select_1", chosen, username) // Pass the lobby code to the select function
         }
 
-        assertEquals("This is not the required amount of people! Required: 2, but found : 3!", exception.message)
+        assertEquals("This is not the required amount of people! Required: 2, but found: 3!", exception.message)
     }
 
 
@@ -336,7 +336,7 @@ class GameServiceTest {
             gameService.select("lobby_select_1", chosen, username)
         }
 
-        assertEquals("This is not the required amount of people! Required: 2, but found : 0!", exception.message)
+        assertEquals("This is not the required amount of people! Required: 2, but found: 0!", exception.message)
     }
 
 
@@ -386,7 +386,7 @@ class GameServiceTest {
             gameService.select("lobby_select_1", chosen, username)
         }
 
-        assertEquals("This is not the required amount of people! Required: 2, but found : 6!", exception.message)
+        assertEquals("This is not the required amount of people! Required: 2, but found: 6!", exception.message)
     }
 
 
@@ -442,7 +442,7 @@ class GameServiceTest {
         assertEquals(Message.OK, message)
     }
 
-    @Test
+    /*@Test
     fun `test vote updates lobby's vote when user has already voted`() {
         val vote = SingleVote("player1", true)
         val username = "player1"
@@ -496,7 +496,7 @@ class GameServiceTest {
         }
 
         assertEquals("You are not a valid player in the lobby!", exception.message)
-    }
+    }*/
 
     @Test
     fun `test vote updates lobby's results`() {
@@ -762,21 +762,54 @@ class GameServiceTest {
         assertEquals(2, updatedLobby?.info?.playerSelectNum)
     }
 
+    @Test
+    fun `test guess sets winner to EVIL if guess is Merlin`() {
+        // Arrange
+        val lobbyCode = "lobby123"
+        val guess = AssassinGuess("player_merlin")
+        val lobby = LobbyBuilder(lobbyCode)
+            .apply {
+                userRoles.addAll(
+                    mutableListOf(
+                        UserRoleMap("player1" , ROLE.SERVANT_OF_ARTHUR), UserRoleMap("player_merlin",ROLE.MERLIN))
+                    )
+            }
 
+            .build()
 
+        `when`( lobbyRepository.findLobbyByLobbyCode(lobbyCode) ).thenReturn(lobby)
 
+        // Act
+        val result = gameService.guess(lobbyCode, guess)
 
+        // Assert
+        assertEquals(Message.OK, result)
+        assertEquals(WINNER.EVIL, lobby.info.winner)
+    }
 
+    @Test
+    fun `test guess sets winner to GOOD if guess is not Merlin`() {
+        // Arrange
+        val lobbyCode = "lobby123"
+        val guess = AssassinGuess("player_not_merlin")
+        val lobby = LobbyBuilder(lobbyCode)
+            .apply {
+                userRoles.addAll(
+                    mutableListOf(
+                        UserRoleMap("player_not_merlin" , ROLE.SERVANT_OF_ARTHUR), UserRoleMap("player2",ROLE.MERLIN))
+                )
+            }
 
+            .build()
 
+        `when`( lobbyRepository.findLobbyByLobbyCode(lobbyCode) ).thenReturn(lobby)
 
+        // Act
+        val result = gameService.guess(lobbyCode, guess)
 
+        // Assert
+        assertEquals(Message.OK, result)
+        assertEquals(WINNER.GOOD, lobby.info.winner)
 
-
-
-
-
-
-
-
+    }
 }

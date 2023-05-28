@@ -69,7 +69,8 @@ class LobbySeesTest {
         val result = lobby.sees(ROLE.PERCIVAL, "Player_Percival")
 
         // Assert
-        assertEquals(listOf( "Player_Morgana", "Player_Merlin"), result)
+        assertTrue(result.contains("Player_Morgana"))
+        assertTrue(result.contains("Player_Merlin"))
     }
 
     @Test

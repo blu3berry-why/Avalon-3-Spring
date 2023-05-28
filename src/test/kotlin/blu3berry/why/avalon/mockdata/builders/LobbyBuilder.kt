@@ -49,7 +49,7 @@ class LobbyBuilder(private val lobbyCode: String) {
         return Lobby(
             null, lobbyCode,
             info ?: InfoBuilder().build(),
-            SettingsBuilder().build(),
+            settings ?: SettingsBuilder().build(),
             votes,
             adventureVotes,
             userRoles,

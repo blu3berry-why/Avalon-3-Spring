@@ -126,8 +126,6 @@ class LobbyAdventureVoteTest {
     }
 
 
-
-
     @Test
     fun `voteOnAdventure should update scores and progress to next round when all players vote(success) successfully`() {
         val currentAdventure = 1
@@ -135,14 +133,13 @@ class LobbyAdventureVoteTest {
         // Create a test instance of the Lobby class
         // Set up the necessary data for the test
         val lobby = LobbyBuilder("lobby_vote_on_adventure_test")
-            .info{
+            .info {
                 king = "Player1"
-                this.
-                currentRound= 1
+                this.currentRound = 1
                 this.currentAdventure = currentAdventure
                 this.isAdventure = true
                 playerSelectNum = 2
-                playersName = mutableListOf("Player1", "Player2","Player3", "Player4","Player5")
+                playersName = mutableListOf("Player1", "Player2", "Player3", "Player4", "Player5")
 
             }
             .addAdventureVote {
@@ -167,7 +164,7 @@ class LobbyAdventureVoteTest {
         // Assert that the adventure succeeds, scores are updated accordingly,
         // and the winner is not determined yet.
         assertEquals(SCORE.GOOD, lobby.info.scores[currentAdventure - 1])
-        assertEquals(WINNER.NOT_DECIDED,lobby.info.winner)
+        assertEquals(WINNER.NOT_DECIDED, lobby.info.winner)
 
         // Verify that the function progresses to the next round
         assertEquals(2, lobby.info.currentRound)
@@ -184,13 +181,13 @@ class LobbyAdventureVoteTest {
         // Create a test instance of the Lobby class
         // Set up the necessary data for the test
         val lobby = LobbyBuilder("lobby_vote_on_adventure_test")
-            .info{
+            .info {
                 king = "Player1"
-                currentRound= 1
+                currentRound = 1
                 this.currentAdventure = currentAdventure
                 this.isAdventure = true
                 playerSelectNum = 2
-                playersName = mutableListOf("Player1", "Player2","Player3", "Player4","Player5")
+                playersName = mutableListOf("Player1", "Player2", "Player3", "Player4", "Player5")
 
             }
             .addAdventureVote {
@@ -215,7 +212,7 @@ class LobbyAdventureVoteTest {
         // Assert that the adventure succeeds, scores are updated accordingly,
         // and the winner is not determined yet.
         assertEquals(SCORE.EVIL, lobby.info.scores[currentAdventure - 1])
-        assertEquals(WINNER.NOT_DECIDED,lobby.info.winner)
+        assertEquals(WINNER.NOT_DECIDED, lobby.info.winner)
 
         // Verify that the function progresses to the next round
         assertEquals(2, lobby.info.currentRound)
@@ -240,9 +237,9 @@ class LobbyAdventureVoteTest {
                 scores = mutableListOf(SCORE.EVIL, SCORE.EVIL, SCORE.GOOD, SCORE.UNDECIDED, SCORE.UNDECIDED)
             }
             //
-            .addAdventureVote {  }
-            .addAdventureVote {  }
-            .addAdventureVote {  }
+            .addAdventureVote { }
+            .addAdventureVote { }
+            .addAdventureVote { }
             .addAdventureVote {
                 king = "Player1"
                 chosen = mutableListOf("Player1", "Player2", "Player3")
@@ -274,9 +271,9 @@ class LobbyAdventureVoteTest {
                 scores = mutableListOf(SCORE.EVIL, SCORE.GOOD, SCORE.GOOD, SCORE.UNDECIDED, SCORE.UNDECIDED)
             }
             //
-            .addAdventureVote {  }
-            .addAdventureVote {  }
-            .addAdventureVote {  }
+            .addAdventureVote { }
+            .addAdventureVote { }
+            .addAdventureVote { }
             .addAdventureVote {
                 king = "Player1"
                 chosen = mutableListOf("Player1", "Player2", "Player3")
@@ -292,10 +289,6 @@ class LobbyAdventureVoteTest {
         // Assert that evil scores reach the winning threshold
         assertEquals(WINNER.GOOD, lobby.info.winner)
     }
-
-
-
-
 
 
 }

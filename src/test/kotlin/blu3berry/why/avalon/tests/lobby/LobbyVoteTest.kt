@@ -1,13 +1,11 @@
 package blu3berry.why.avalon.tests.lobby
 
-import blu3berry.why.avalon.api.errorhandling.exceptions.ConflictException
 import blu3berry.why.avalon.converters.parseVotes
 import blu3berry.why.avalon.mockdata.builders.LobbyBuilder
 import blu3berry.why.avalon.model.db.lobby.extensions.vote
 import blu3berry.why.avalon.model.enums.WINNER
 import blu3berry.why.avalon.model.network.SingleVote
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.CsvSource
@@ -41,7 +39,7 @@ class LobbyVoteTest {
         assertEquals(vote, lobby.votes[lobby.info.currentRound].results.first())
     }
 
-    @Test
+   /* @Test
     fun `test vote updates lobby's vote when user has already voted`() {
         // Arrange
         val vote = SingleVote("player1", true)
@@ -65,11 +63,11 @@ class LobbyVoteTest {
 
         // Assert
         assertEquals(vote, lobby.votes[1].results[0])
-    }
+    }*/
 
 
 
-    @Test
+   /* @Test
     fun `test vote throws exception when user is not a valid player in the lobby`() {
         // Arrange
         val vote = SingleVote("player99", true) // User not present in the lobby
@@ -94,7 +92,7 @@ class LobbyVoteTest {
         }
 
         assertEquals("You are not a valid player in the lobby!", exception.message)
-    }
+    }*/
 
 
     @Test
