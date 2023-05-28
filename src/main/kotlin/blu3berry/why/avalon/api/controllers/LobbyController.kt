@@ -4,11 +4,7 @@ import blu3berry.why.avalon.dal.services.interfaces.ILobbyService
 import blu3berry.why.avalon.model.network.LobbyCode
 import blu3berry.why.avalon.model.network.Message
 import blu3berry.why.avalon.model.network.Settings
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class LobbyController(val lobbyService: ILobbyService) {
@@ -27,8 +23,8 @@ class LobbyController(val lobbyService: ILobbyService) {
 
 
     @PostMapping("/lobby/{lobbyCode}/join")
-    fun joinLobby(@PathVariable lobbyCode: String): Message {
-        return if (lobbyService.joinLobby(lobbyCode,TODO())){
+    fun joinLobby(@PathVariable lobbyCode: String, @RequestHeader("Avalon-Header-Logged-In-User-Username") username: String): Message {
+        return if (lobbyService.joinLobby(lobbyCode,username)){
             Message("Join successful")
         }else{
             Message("Join failed")
@@ -36,8 +32,8 @@ class LobbyController(val lobbyService: ILobbyService) {
     }
 
     @PostMapping("/lobby/{lobbyCode}/leave")
-    fun leaveLobby(@PathVariable lobbyCode: String): Message{
-        return if (lobbyService.leaveLobby(lobbyCode,TODO())){
+    fun leaveLobby(@PathVariable lobbyCode: String, @RequestHeader("Avalon-Header-Logged-In-User-Username") username: String): Message{
+        return if (lobbyService.leaveLobby(lobbyCode,username)){
             Message("Leave successful")
         }else{
             Message("Leave failed")

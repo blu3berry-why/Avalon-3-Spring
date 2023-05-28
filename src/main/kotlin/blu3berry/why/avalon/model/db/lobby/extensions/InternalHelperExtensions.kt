@@ -9,7 +9,7 @@ internal val Lobby.playerSize: Int
 
 
 internal val Lobby.currentChosen: MutableList<String>
-    get() = this.votes[this.info.currentRound].choosen
+    get() = this.votes[this.info.currentRound].chosen
 
 internal fun Lobby.addNewVoteRound()  =
     this.votes.add(RoundVote(this.info.king!!, mutableListOf(), mutableListOf()))
@@ -37,6 +37,9 @@ private fun Lobby.nextKing(): String {
 internal fun Lobby.nextRound() {
     this.info.currentRound++
     this.info.isAdventure = false
+    this.info.selectedForAdventure.clear()
+
+    this.setPlayerSelectNum()
     nextKing()
     addNewVoteRound()
 }

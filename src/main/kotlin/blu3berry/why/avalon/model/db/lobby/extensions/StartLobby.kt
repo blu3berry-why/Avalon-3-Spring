@@ -1,8 +1,8 @@
 package blu3berry.why.avalon.model.db.lobby.extensions
 
 import blu3berry.why.avalon.api.errorhandling.exceptions.ConflictException
-import blu3berry.why.avalon.model.db.lobby.Lobby
 import blu3berry.why.avalon.model.db.UserRoleMap
+import blu3berry.why.avalon.model.db.lobby.Lobby
 import blu3berry.why.avalon.model.enums.ROLE
 import blu3berry.why.avalon.model.helpers.Constants
 import blu3berry.why.avalon.model.network.RoundVote
@@ -22,15 +22,15 @@ private val Lobby.numberOfEvilPlayers: Int
 
 private fun Lobby.addEvil(roles: MutableList<ROLE>) {
     fun needMoreEvil() = roles.size < numberOfEvilPlayers
-    val needMoreEvil = needMoreEvil()
+
 
     for (role in evilSettingsToRolesMap) {
-        if (role.checked && needMoreEvil) {
+        if (role.checked && needMoreEvil()) {
             roles.add(role.type)
         }
     }
 
-    while (needMoreEvil)
+    while (needMoreEvil())
         roles.add(ROLE.MINION_OF_MORDRED)
 
 }
@@ -44,17 +44,16 @@ private val Lobby.goodSettingsToRoleMap: List<SettingToRoleMapper>
 private fun Lobby.addGood(roles: MutableList<ROLE>) {
 
     fun needMoreGood() = (roles.size - numberOfEvilPlayers) < Constants.playerBalance[this.playerSize].good
-    val needMoreGood = needMoreGood()
 
     roles.add(ROLE.MERLIN)
 
     for (role in goodSettingsToRoleMap) {
-        if (role.checked && needMoreGood) {
+        if (role.checked && needMoreGood()) {
             roles.add(role.type)
         }
     }
 
-    while (needMoreGood)
+    while (needMoreGood())
         roles.add(ROLE.SERVANT_OF_ARTHUR)
 }
 
@@ -107,6 +106,9 @@ private fun Lobby.addEmptyAdventureVoteRoundPlaceholder() {
 }
 
 
+internal fun Lobby.setPlayerSelectNum(){
+    this.info.playerSelectNum = Constants.adventureLimit[playerSize].limits[this.selectionRound]
+}
 
 internal fun Lobby.start_impl() {
     checkStartingConditions()
@@ -118,6 +120,8 @@ internal fun Lobby.start_impl() {
     setKing(firstPlayerName)
 
     this.info.currentRound = 1
+
+    this.setPlayerSelectNum()
 
     addEmptyVoteRoundPlaceholder()
     addNewVoteRound()

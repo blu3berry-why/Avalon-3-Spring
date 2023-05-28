@@ -11,7 +11,7 @@ fun Lobby.vote(vote: SingleVote) = this.vote_impl(vote)
 
 fun Lobby.sees(role: ROLE, username:String) = this.sees_impl(role, username)
 
-fun Lobby.select(chosen:List<String>) = this.select_impl(chosen)
+fun Lobby.select(chosen:List<String>, username: String) = this.select_impl(chosen, username)
 
 fun Lobby.start() = this.start_impl()
 

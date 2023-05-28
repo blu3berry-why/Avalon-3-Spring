@@ -3,11 +3,7 @@ package blu3berry.why.avalon.api.controllers
 import blu3berry.why.avalon.model.network.LobbyCode
 import blu3berry.why.avalon.model.network.Message
 import blu3berry.why.avalon.model.network.Settings
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
 
 @RestController
 class OldEndpointsController(val lobbyController: LobbyController) {
@@ -29,13 +25,13 @@ class OldEndpointsController(val lobbyController: LobbyController) {
     }
 
     @PostMapping("/join/{lobbyCode}")
-    fun joinLobby(@PathVariable lobbyCode: String): Message {
-        return lobbyController.joinLobby(lobbyCode)
+    fun joinLobby(@PathVariable lobbyCode: String, @RequestHeader("Avalon-Header-Logged-In-User-Username") username: String): Message {
+        return lobbyController.joinLobby(lobbyCode, username)
     }
 
     @PostMapping("/leave/{lobbyCode}")
-    fun leaveLobby(@PathVariable lobbyCode: String): Message {
-        return lobbyController.leaveLobby(lobbyCode)
+    fun leaveLobby(@PathVariable lobbyCode: String, @RequestHeader("Avalon-Header-Logged-In-User-Username") username: String): Message {
+        return lobbyController.leaveLobby(lobbyCode, username)
     }
 
     @PostMapping("/start/{lobbyCode}")

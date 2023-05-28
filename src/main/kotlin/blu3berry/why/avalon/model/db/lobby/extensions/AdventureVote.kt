@@ -14,7 +14,7 @@ private val Lobby.currentAdventureVotes: RoundVote
     get() = this.adventureVotes[this.info.currentAdventure]
 
 private fun Lobby.checkIfChosen(vote: SingleVote) {
-    currentAdventureVotes.choosen.firstOrNull { vote.username == it }
+    currentAdventureVotes.chosen.firstOrNull { vote.username == it }
         ?: ConflictException.Throw("You are not chosen")
 }
 
@@ -67,7 +67,7 @@ internal fun Lobby.voteOnAdventure_impl(vote: SingleVote) {
         failLimit = Constants.adventureLimit[this.playerSize].failsRequiredOnFourth
     }
 
-    val everybodyVoted = currentAdventureVotes.results.size == currentAdventureVotes.choosen.size
+    val everybodyVoted = currentAdventureVotes.results.size == currentAdventureVotes.chosen.size
 
     if (everybodyVoted) {
 

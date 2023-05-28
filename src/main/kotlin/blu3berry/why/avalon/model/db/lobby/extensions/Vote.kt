@@ -33,8 +33,10 @@ internal fun Lobby.vote_impl(vote: SingleVote) {
 
     if (approvingVotes > (this.playerSize / 2)) {
         this.startAdventure()
+        selectionRound ++
     } else {
         failedToSelectForAdventure()
+        this.nextRound()
     }
-    this.nextRound()
+
 }

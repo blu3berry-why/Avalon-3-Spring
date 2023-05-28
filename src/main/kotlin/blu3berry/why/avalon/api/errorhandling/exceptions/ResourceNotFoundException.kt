@@ -6,6 +6,7 @@ class ResourceNotFoundException : RuntimeException{
     constructor(message: String, cause: Throwable) : super(message, cause)
 
     companion object{
-        val lobbyNotFound: Nothing = throw ResourceNotFoundException("Lobby with this code does not exists.")
+        val lobbyNotFound: Nothing
+            get() = throw ResourceNotFoundException("Lobby with this code does not exists.")
     }
 }

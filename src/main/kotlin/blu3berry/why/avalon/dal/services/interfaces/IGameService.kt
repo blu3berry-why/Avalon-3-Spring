@@ -7,7 +7,7 @@ interface IGameService {
 
     fun getCharacter(lobbyCode: String, username: String): CharacterInfo
 
-    fun select(lobbyCode: String, selected: List<String>): Message
+    fun select(lobbyCode: String, selected: List<String>, username: String): Message
 
     fun vote(lobbyCode: String, vote: SingleVote): Message
 

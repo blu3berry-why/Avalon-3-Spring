@@ -1,13 +1,13 @@
 package blu3berry.why.avalon.dal.services
 
-import blu3berry.why.avalon.model.db.lobby.extensions.start
+import blu3berry.why.avalon.dal.services.interfaces.ILobbyOperations
+import blu3berry.why.avalon.dal.services.interfaces.ILobbyService
+import blu3berry.why.avalon.dal.services.repository.LobbyRepository
 import blu3berry.why.avalon.model.db.lobby.Lobby
+import blu3berry.why.avalon.model.db.lobby.extensions.start
 import blu3berry.why.avalon.model.enums.SCORE
 import blu3berry.why.avalon.model.network.Info
 import blu3berry.why.avalon.model.network.Settings
-import blu3berry.why.avalon.dal.repository.LobbyRepository
-import blu3berry.why.avalon.dal.services.interfaces.ILobbyOperations
-import blu3berry.why.avalon.dal.services.interfaces.ILobbyService
 import org.springframework.stereotype.Service
 
 
@@ -28,19 +28,23 @@ class LobbyService(
         if (!lobby.info.playersName.contains(username)){
             lobby.info.playersName.add(username)
         }
+        lobbyRepository.save(lobby)
         return true
     }
 
     override fun leaveLobby(lobbyCode: String, username: String) : Boolean{
         val lobby = lobbyByCode(lobbyCode)
-        if (!lobby.info.playersName.contains(username)){
+        if (lobby.info.playersName.contains(username)){
             lobby.info.playersName.remove(username)
         }
+        lobbyRepository.save(lobby)
         return true
     }
 
     override fun startLobby(lobbyCode: String){
-        return lobbyByCode(lobbyCode).start()
+        val lobby = lobbyByCode(lobbyCode)
+            lobby.start()
+        lobbyRepository.save(lobby)
     }
 
     override fun updateSettings(lobbyCode: String, settings: Settings){
@@ -51,7 +55,8 @@ class LobbyService(
     }
 
     override fun createLobby(): Lobby {
-        return Lobby(
+        val lobby  =  Lobby(
+            _id = null,
             lobbyCode = randomizeService.sixCharStr(),
             info = Info(
                 started = false,
@@ -75,5 +80,8 @@ class LobbyService(
             userRoles = mutableListOf(),
             adventureVotes = mutableListOf(),
         )
+
+        this.lobbyRepository.save(lobby)
+        return lobby
     }
 }
