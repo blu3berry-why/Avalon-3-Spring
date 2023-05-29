@@ -1,6 +1,6 @@
 package blu3berry.why.avalon.api.controllers
 
-import blu3berry.why.avalon.dal.services.interfaces.IGameService
+import blu3berry.why.avalon.dal.interfaces.IGameService
 import blu3berry.why.avalon.model.network.*
 import org.springframework.web.bind.annotation.*
 

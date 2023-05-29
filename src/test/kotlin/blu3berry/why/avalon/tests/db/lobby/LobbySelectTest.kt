@@ -1,4 +1,4 @@
-package blu3berry.why.avalon.tests.lobby
+package blu3berry.why.avalon.tests.db.lobby
 
 import blu3berry.why.avalon.api.errorhandling.exceptions.ConflictException
 import blu3berry.why.avalon.mockdata.builders.LobbyBuilder

@@ -3,7 +3,7 @@ package blu3berry.why.avalon.tests.services
 
 import blu3berry.why.avalon.dal.services.LobbyService
 import blu3berry.why.avalon.dal.services.RandomizeService
-import blu3berry.why.avalon.dal.services.repository.LobbyRepository
+import blu3berry.why.avalon.dal.repository.LobbyRepository
 import blu3berry.why.avalon.mockdata.builders.LobbyBuilder
 import blu3berry.why.avalon.model.network.Settings
 import org.junit.jupiter.api.Assertions.*

@@ -1,9 +1,9 @@
 package blu3berry.why.avalon.dal.services
 
 
-import blu3berry.why.avalon.dal.services.interfaces.IGameService
-import blu3berry.why.avalon.dal.services.interfaces.ILobbyOperations
-import blu3berry.why.avalon.dal.services.repository.LobbyRepository
+import blu3berry.why.avalon.dal.interfaces.IGameService
+import blu3berry.why.avalon.dal.interfaces.ILobbyOperations
+import blu3berry.why.avalon.dal.repository.LobbyRepository
 import blu3berry.why.avalon.model.db.UserRoleMap
 import blu3berry.why.avalon.model.db.lobby.extensions.sees
 import blu3berry.why.avalon.model.db.lobby.extensions.select

@@ -1,7 +1,7 @@
-package blu3berry.why.avalon.dal.services.interfaces
+package blu3berry.why.avalon.dal.interfaces
 
 import blu3berry.why.avalon.api.errorhandling.exceptions.ResourceNotFoundException
-import blu3berry.why.avalon.dal.services.repository.LobbyRepository
+import blu3berry.why.avalon.dal.repository.LobbyRepository
 import java.util.*
 
 interface ILobbyOperations {

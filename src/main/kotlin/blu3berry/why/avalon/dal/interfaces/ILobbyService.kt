@@ -1,4 +1,4 @@
-package blu3berry.why.avalon.dal.services.interfaces
+package blu3berry.why.avalon.dal.interfaces
 
 import blu3berry.why.avalon.model.db.lobby.Lobby
 import blu3berry.why.avalon.model.network.Settings

@@ -1,7 +1,7 @@
 package blu3berry.why.avalon.api.controllers
 
 import blu3berry.why.avalon.dal.services.ConverterService
-import blu3berry.why.avalon.dal.services.interfaces.IUserService
+import blu3berry.why.avalon.dal.interfaces.IUserService
 import blu3berry.why.avalon.model.network.LoginInfo
 import org.springframework.web.bind.annotation.*
 

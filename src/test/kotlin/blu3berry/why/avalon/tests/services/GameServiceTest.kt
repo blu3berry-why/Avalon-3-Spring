@@ -4,7 +4,7 @@ import blu3berry.why.avalon.api.errorhandling.exceptions.ConflictException
 import blu3berry.why.avalon.api.errorhandling.exceptions.ResourceNotFoundException
 import blu3berry.why.avalon.converters.parseVotes
 import blu3berry.why.avalon.dal.services.GameService
-import blu3berry.why.avalon.dal.services.repository.LobbyRepository
+import blu3berry.why.avalon.dal.repository.LobbyRepository
 import blu3berry.why.avalon.mockdata.MockLobbies
 import blu3berry.why.avalon.mockdata.builders.LobbyBuilder
 import blu3berry.why.avalon.model.db.UserRoleMap

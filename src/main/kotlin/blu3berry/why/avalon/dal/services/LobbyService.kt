@@ -1,8 +1,8 @@
 package blu3berry.why.avalon.dal.services
 
-import blu3berry.why.avalon.dal.services.interfaces.ILobbyOperations
-import blu3berry.why.avalon.dal.services.interfaces.ILobbyService
-import blu3berry.why.avalon.dal.services.repository.LobbyRepository
+import blu3berry.why.avalon.dal.interfaces.ILobbyOperations
+import blu3berry.why.avalon.dal.interfaces.ILobbyService
+import blu3berry.why.avalon.dal.repository.LobbyRepository
 import blu3berry.why.avalon.model.db.lobby.Lobby
 import blu3berry.why.avalon.model.db.lobby.extensions.start
 import blu3berry.why.avalon.model.enums.SCORE

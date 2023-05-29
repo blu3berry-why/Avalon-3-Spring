@@ -1,7 +1,6 @@
 package blu3berry.why.avalon.api.configuration
 
 import blu3berry.why.avalon.dal.services.LoggingService
-import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.core.MethodParameter
 import org.springframework.http.MediaType
 import org.springframework.http.converter.HttpMessageConverter

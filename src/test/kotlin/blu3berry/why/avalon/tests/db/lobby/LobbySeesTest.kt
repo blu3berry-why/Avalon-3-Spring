@@ -1,4 +1,4 @@
-package blu3berry.why.avalon.tests.lobby
+package blu3berry.why.avalon.tests.db.lobby
 
 import blu3berry.why.avalon.mockdata.builders.LobbyBuilder
 import blu3berry.why.avalon.model.db.UserRoleMap

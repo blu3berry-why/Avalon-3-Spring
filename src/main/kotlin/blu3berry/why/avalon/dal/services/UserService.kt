@@ -1,9 +1,9 @@
 package blu3berry.why.avalon.dal.services
 
 import blu3berry.why.avalon.api.errorhandling.exceptions.ConflictException
-import blu3berry.why.avalon.dal.services.interfaces.IUserService
+import blu3berry.why.avalon.dal.interfaces.IUserService
 import blu3berry.why.avalon.model.db.User
-import blu3berry.why.avalon.dal.services.repository.UserRepository
+import blu3berry.why.avalon.dal.repository.UserRepository
 import blu3berry.why.avalon.model.network.LoginInfo
 import org.springframework.stereotype.Service
 

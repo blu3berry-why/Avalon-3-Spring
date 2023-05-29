@@ -1,4 +1,4 @@
-package blu3berry.why.avalon.dal.services.interfaces
+package blu3berry.why.avalon.dal.interfaces
 
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse

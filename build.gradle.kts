@@ -39,6 +39,8 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.springframework.security:spring-security-test")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    implementation("org.hibernate.validator:hibernate-validator:6.2.0.Final")
 }
 
 tasks.withType<KotlinCompile> {
