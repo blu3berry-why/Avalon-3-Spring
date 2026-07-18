@@ -1,10 +1,11 @@
-FROM gradle:6.9.3-jdk17-alpine as builder
+FROM gradle:7.6-jdk17 as builder
 USER root
 WORKDIR /builder
 ADD . /builder
-RUN gradle build --stacktrace
+# -x test: tests run in CI; keeps the on-device (Raspberry Pi) image build fast
+RUN gradle build --stacktrace -x test
 
-FROM openjdk:17-alpine
+FROM eclipse-temurin:17-jre
 WORKDIR /app
 EXPOSE 8080
 COPY --from=builder /builder/build/libs/avalon-0.0.1-SNAPSHOT.jar .
