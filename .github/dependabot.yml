@@ -1,0 +1,9 @@
+# Gradle dependencies deliberately excluded for now: the Spring Boot 3.x /
+# Kotlin 2.x jump is a planned modernization track, and per-dependency bump
+# PRs against Boot 2.7 would mostly be breaking noise until then.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

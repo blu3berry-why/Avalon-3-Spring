@@ -1,0 +1,27 @@
+# Watches master and maintains a rolling release PR (version bump + CHANGELOG).
+# Merging that PR creates the tag + GitHub Release. Coolify deploys from git,
+# so no publish workflow is triggered — the default GITHUB_TOKEN is enough.
+# (If a publish-on-release workflow is added later, switch to a PAT: events
+# created by GITHUB_TOKEN never trigger other workflows.)
+#
+# Versioning: conventional commits; pre-1.0 breaking changes bump MINOR
+# (bump-minor-pre-major). Force an exact version with a "Release-As: x.y.z"
+# commit footer.
+name: Release Please
+
+on:
+  push:
+    branches: [ master ]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json

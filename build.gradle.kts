@@ -10,8 +10,13 @@ plugins {
 }
 
 group = "blu3berry.why"
-version = "0.0.1-SNAPSHOT"
+version = "0.1.0" // x-release-please-version
 java.sourceCompatibility = JavaVersion.VERSION_17
+
+// Only the boot jar; the -plain.jar would break the Dockerfile's *.jar copy
+tasks.named<Jar>("jar") {
+    enabled = false
+}
 
 configurations {
     compileOnly {

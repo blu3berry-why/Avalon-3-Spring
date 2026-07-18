@@ -8,5 +8,5 @@ RUN gradle build --stacktrace -x test
 FROM eclipse-temurin:17-jre
 WORKDIR /app
 EXPOSE 8080
-COPY --from=builder /builder/build/libs/avalon-0.0.1-SNAPSHOT.jar .
-CMD ["java", "-jar", "avalon-0.0.1-SNAPSHOT.jar"]
+COPY --from=builder /builder/build/libs/*.jar app.jar
+CMD ["java", "-jar", "app.jar"]
