@@ -7,15 +7,18 @@ import org.springframework.web.bind.annotation.*
 
 
 @RestController
-@RequestMapping("user/{username}")
+@RequestMapping("user")
 class UserController(val userService: IUserService, val converterService: ConverterService) {
 
-    @GetMapping
+    // GET looks up any user by name (path var). PUT/DELETE act on the authenticated
+    // user via the gateway-injected header, so they carry no `{username}` segment — the
+    // old `user/{username}` mapping on PUT/DELETE ignored the path value, which also
+    // produced an invalid OpenAPI path param (undeclared) that broke kmpgen.
+    @GetMapping("/{username}")
     fun getUserByUsername(@PathVariable username: String) = converterService.toLoginInfo(
         userService.findUserByUsername(username))
 
 
-    //TODO only the user can update itself
     @PutMapping
     fun updateUserByUsername(@RequestHeader("Avalon-Header-Logged-In-User-Username") username: String, @RequestBody user: LoginInfo) = converterService.toLoginInfo(
         userService.updateUserByUsername(username, user))
