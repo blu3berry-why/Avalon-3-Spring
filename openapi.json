@@ -6,7 +6,7 @@
     "version" : "0.1.0"
   },
   "servers" : [ {
-    "url" : "http://localhost:64197",
+    "url" : "http://localhost:65270",
     "description" : "Generated server url"
   } ],
   "paths" : {
@@ -152,6 +152,16 @@
             "type" : "string"
           }
         } ],
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/Settings"
+              }
+            }
+          },
+          "required" : true
+        },
         "responses" : {
           "409" : {
             "description" : "Conflict",
@@ -808,6 +818,30 @@
           }
         }
       },
+      "Settings" : {
+        "required" : [ "arnold", "assassin", "mordred", "morgana", "oberon", "percival" ],
+        "type" : "object",
+        "properties" : {
+          "assassin" : {
+            "type" : "boolean"
+          },
+          "mordred" : {
+            "type" : "boolean"
+          },
+          "morgana" : {
+            "type" : "boolean"
+          },
+          "oberon" : {
+            "type" : "boolean"
+          },
+          "percival" : {
+            "type" : "boolean"
+          },
+          "arnold" : {
+            "type" : "boolean"
+          }
+        }
+      },
       "LobbyCode" : {
         "required" : [ "code" ],
         "type" : "object",
@@ -835,30 +869,6 @@
         "properties" : {
           "guess" : {
             "type" : "string"
-          }
-        }
-      },
-      "Settings" : {
-        "required" : [ "arnold", "assassin", "mordred", "morgana", "oberon", "percival" ],
-        "type" : "object",
-        "properties" : {
-          "assassin" : {
-            "type" : "boolean"
-          },
-          "mordred" : {
-            "type" : "boolean"
-          },
-          "morgana" : {
-            "type" : "boolean"
-          },
-          "oberon" : {
-            "type" : "boolean"
-          },
-          "percival" : {
-            "type" : "boolean"
-          },
-          "arnold" : {
-            "type" : "boolean"
           }
         }
       },

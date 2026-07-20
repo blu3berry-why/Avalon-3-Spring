@@ -44,8 +44,8 @@ class OldEndpointsController(val lobbyController: LobbyController) {
     }
 
     @PutMapping("/settings/{lobbyCode}")
-    fun updateSettings(@PathVariable lobbyCode: String): Message {
-        return lobbyController.updateSettings(lobbyCode)
+    fun updateSettings(@PathVariable lobbyCode: String, @RequestBody settings: Settings): Message {
+        return lobbyController.updateSettings(lobbyCode, settings)
     }
 
 }

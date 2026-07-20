@@ -46,9 +46,12 @@ class LobbyController(val lobbyService: ILobbyService) {
         return Message.OK
     }
 
+    // The handler used to call itself instead of the service and declared no request body:
+    // any PUT here recursed until StackOverflowError, and the generated client contract had
+    // no Settings parameter at all.
     @PutMapping("/lobby/{lobbyCode}/settings")
-    fun updateSettings(@PathVariable lobbyCode: String): Message{
-        updateSettings(lobbyCode)
+    fun updateSettings(@PathVariable lobbyCode: String, @RequestBody settings: Settings): Message{
+        lobbyService.updateSettings(lobbyCode, settings)
         return Message.OK
     }
 }
