@@ -6,7 +6,7 @@
     "version" : "0.1.0"
   },
   "servers" : [ {
-    "url" : "http://localhost:62888",
+    "url" : "http://localhost:64197",
     "description" : "Generated server url"
   } ],
   "paths" : {
@@ -26,20 +26,20 @@
           "required" : true
         },
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -49,7 +49,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/LoginInfo"
                 }
@@ -63,20 +63,20 @@
         "operationId" : "deleteUserByUsername",
         "parameters" : [ ],
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -86,7 +86,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/LoginInfo"
                 }
@@ -109,20 +109,20 @@
           }
         } ],
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -132,7 +132,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Settings"
                 }
@@ -153,20 +153,20 @@
           }
         } ],
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -176,7 +176,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -199,20 +199,20 @@
           }
         } ],
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -222,7 +222,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -245,20 +245,20 @@
           }
         } ],
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -268,7 +268,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -291,20 +291,20 @@
           }
         } ],
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -314,7 +314,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -329,20 +329,20 @@
         "tags" : [ "lobby-controller" ],
         "operationId" : "createLobby",
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -352,7 +352,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/LobbyCode"
                 }
@@ -385,20 +385,20 @@
           "required" : true
         },
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -408,7 +408,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -444,20 +444,20 @@
           "required" : true
         },
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -467,7 +467,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -500,20 +500,20 @@
           "required" : true
         },
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -523,7 +523,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -556,20 +556,20 @@
           "required" : true
         },
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -579,7 +579,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -602,20 +602,20 @@
           }
         } ],
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -625,7 +625,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/LoginInfo"
                 }
@@ -648,20 +648,20 @@
           }
         } ],
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -671,7 +671,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "type" : "array",
                   "items" : {
@@ -697,20 +697,20 @@
           }
         } ],
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -720,7 +720,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Info"
                 }
@@ -743,20 +743,20 @@
           }
         } ],
         "responses" : {
-          "404" : {
-            "description" : "Not Found",
+          "409" : {
+            "description" : "Conflict",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
               }
             }
           },
-          "409" : {
-            "description" : "Conflict",
+          "404" : {
+            "description" : "Not Found",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/Message"
                 }
@@ -766,7 +766,7 @@
           "200" : {
             "description" : "OK",
             "content" : {
-              "*/*" : {
+              "application/json" : {
                 "schema" : {
                   "$ref" : "#/components/schemas/CharacterInfo"
                 }
