@@ -3,8 +3,12 @@ package blu3berry.why.avalon.api.controllers
 import blu3berry.why.avalon.model.network.LobbyCode
 import blu3berry.why.avalon.model.network.Message
 import blu3berry.why.avalon.model.network.Settings
+import io.swagger.v3.oas.annotations.Hidden
 import org.springframework.web.bind.annotation.*
 
+// Hidden from the client contract (F2): legacy flat paths kept only for the frozen 2022
+// mobile app. The KMP client targets the new REST paths on LobbyController.
+@Hidden
 @RestController
 class OldEndpointsController(val lobbyController: LobbyController) {
 
@@ -40,8 +44,8 @@ class OldEndpointsController(val lobbyController: LobbyController) {
     }
 
     @PutMapping("/settings/{lobbyCode}")
-    fun updateSettings(@PathVariable lobbyCode: String): Message {
-        return lobbyController.updateSettings(lobbyCode)
+    fun updateSettings(@PathVariable lobbyCode: String, @RequestBody settings: Settings): Message {
+        return lobbyController.updateSettings(lobbyCode, settings)
     }
 
 }
